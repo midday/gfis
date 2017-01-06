@@ -1,0 +1,25 @@
+{
+  "name": "gfis",
+  "version": "1.0.6",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "gfis": "bin/gfis"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fis-parser-less": "^0.1.3",
+    "fis-parser-node-sass": "^1.0.1",
+    "fis3": "^3.4.31",
+    "fis3-hook-module": "^1.2.2",
+    "fis3-parser-gfe-freemarker": "^1.0.0",
+    "fis3-parser-gfe-ssi": "^1.0.0",
+    "fis3-postpackager-gfe-debug-output": "^1.0.0",
+    "liftoff": "^2.3.0",
+    "minimist": "^1.2.0"
+  }
+}
