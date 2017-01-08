@@ -1,7 +1,7 @@
 {
   "name": "gfis",
-  "version": "1.0.7",
-  "description": "",
+  "version": "1.0.8",
+  "description": "前端集成解决方案",
   "main": "index.js",
   "bin": {
     "gfis": "bin/gfis"
@@ -9,16 +9,31 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/midday/fis3-parser-gfe-ssi.git"
+  },
+  "keywords": [
+    "gfe",
+    "fis3",
+    "ssi"
+  ],
+  "author": "midday",
+  "license": "MIT",
   "dependencies": {
+    "fis-optimizer-html-minifier": "^0.0.9",
+    "fis-parser-coffee-script": "^0.0.2",
+    "fis-parser-es6-babel": "^1.0.0",
     "fis-parser-less": "^0.1.3",
     "fis-parser-node-sass": "^1.0.1",
     "fis3": "^3.4.31",
-    "fis3-hook-module": "^1.2.2",
-    "fis3-parser-gfe-freemarker": "^1.0.0",
-    "fis3-parser-gfe-ssi": "^1.0.0",
-    "fis3-postpackager-gfe-debug-output": "^1.0.0",
+    "fis3-deploy-gfe-combo-url": "^1.0.2",
+    "fis3-deploy-gfe-replace": "^1.0.3",
+    "fis3-deploy-gfe-script-inbottom": "^1.0.1",
+    "fis3-deploy-gfe-script-place": "^1.0.1",
+    "fis3-parser-gfe-freemarker": "^1.0.1",
+    "fis3-parser-gfe-ssi": "^1.0.1",
+    "fis3-prepackager-gfe-debug-output": "^1.0.1",
     "liftoff": "^2.3.0",
     "minimist": "^1.2.0"
   }

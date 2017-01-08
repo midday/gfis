@@ -32,13 +32,13 @@ var gfis = {
     //异构语言预编译处理
     _preCompile: function() {
         if (config.release.saas) {
-            fis.match('*.less', {
-                parser: fis.plugin('less'),
+            fis.match('/saas/**.{sass,scss}', {
+                parser: fis.plugin('sass'),
                 rExt: '.css'
             });
         }
         if (config.release.less) {
-            fis.match('*.less', {
+            fis.match('/less/**.less', {
                 parser: fis.plugin('less'),
                 rExt: '.css'
             });
@@ -47,12 +47,12 @@ var gfis = {
     //处理文件MD5
     _processFileByMd5: function() {
         if (config.release.cssMd5) {
-            fis.match('*.{css,saas,less}', {
+            fis.match('/{saas,less,css}/**.{css,saas,scss,less}', {
                 useHash: true
             });
         }
         if (config.release.jsMd5) {
-            fis.match('*.js}', {
+            fis.match('/js/**.js}', {
                 useHash: true
             });
         }
