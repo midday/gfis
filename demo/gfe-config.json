@@ -14,6 +14,7 @@
         "jsCompress": true,
         "cssCompress": true,
         "pngCompress": true,
+        "htmlCompress": false,
         "cssSprite": true,
         "urlCombo": true,
         "debug": true,
