@@ -12,10 +12,9 @@
 </head>
 
 <body>
-    sdfdsfsd
-    sd
-   sdfdsf
-    
+    <h1>${title}</h1>
+    <#include "includes/list.ftl"/>
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
