@@ -23,6 +23,7 @@ var gfis = {
      * 设置环境通用配置
      */
     setEvnCommonConfig: function() {
+        this._setBaseCommon();
         this._preCompile();
         this._processFileByMd5();
         this._processFileByCompress();
@@ -37,6 +38,20 @@ var gfis = {
         this._setUatEvnConfig();
         this._setPreEvnConfig();
         this._setPrdEvnConfig();
+    },
+    /**
+     * 设置基础配置
+     */
+    _setBaseCommon: function() {
+        //关闭编译缓存
+        fis.match('*', {
+            useCache: false
+        });
+
+        //不发布build文件
+        fis.match('/build/**', {
+            release: false
+        });
     },
     /**
      * 异构语言预编译处理
@@ -186,14 +201,9 @@ var gfis = {
      * 设置开发环境配置
      */
     _setDevEvnConfig: function() {
-        //关闭编译缓存
-        fis.match('*', {
-            useCache: false
-        });
-
-        //不发布build文件
-        fis.match('/build/**', {
-            release: false
+        //为了方便server预览，开发环境将.ftl改为.html
+        fis.match('/html/**.ftl', {
+            rExt: '.html'
         });
 
         //设置freemarker解析和ssi
@@ -257,6 +267,9 @@ var gfis = {
             .match('/html/**.{html,ftl}', {
                 parser: null
             })
+            .match('/html/**.ftl', {
+                rExt: '.ftl'
+            })
             .match('*', {
                 deploy: [
                     fis.plugin('gfe-combo-url', {
@@ -293,7 +306,7 @@ var gfis = {
                         cssDomain: this.config.release.preDomain.css,
                         jsDomain: this.config.release.preDomain.js
                     })
-                })
+                });
         }
 
         fis
@@ -311,6 +324,9 @@ var gfis = {
             })
             .match('/html/**.{html,ftl}', {
                 parser: null
+            })
+            .match('/html/**.ftl', {
+                rExt: '.ftl'
             })
             .match('*', {
                 deploy: [
@@ -368,6 +384,9 @@ var gfis = {
             })
             .match('/html/**.{html,ftl}', {
                 parser: null
+            })
+            .match('/html/**.ftl', {
+                rExt: '.ftl'
             })
             .match('*', {
                 deploy: [
