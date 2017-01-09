@@ -168,6 +168,13 @@ var gfis = {
                 optimizer: fis.plugin('png-compressor')
             });
         }
+
+        //html压缩
+        if (this.config.release.htmlCompress) {
+            fis.match('/html/**.{html,ftl}', {
+                optimizer: fis.plugin('html-minifier')
+            });
+        }
     },
     /**
      * 处理雪碧图
@@ -373,7 +380,7 @@ var gfis = {
                         jsDomain: this.config.release.prdDomain.js,
                         debugDomain: this.config.release.debugDomain
                     })
-                })
+                });
         }
 
 
