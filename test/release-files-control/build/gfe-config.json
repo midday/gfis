@@ -18,7 +18,7 @@
         "urlCombo": true,
         "debug": true,
         "debugDomain": "//127.0.0.1",
-        "ignoreReleaseFiles": null,
+        "ignoreReleaseFiles": ["/ignore{A,B}/**", "/containsIgnoreFile/ignore{A,B}.txt"],
         "uatDomain": {
             "js": "//js.atguat.net.cn",
             "css": "//css.atguat.net.cn",

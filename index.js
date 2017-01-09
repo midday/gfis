@@ -8,7 +8,7 @@ fis.cli.info = require('./package.json');
 
 // 添加自定义命令
 fis.require._cache['command-init'] = require('./command/init.js');
-fis.set('modules.commands', ['init']);
+fis.set('modules.commands', ['init','install','release','server','inspect']);
 
 var gfis = {
     /**
