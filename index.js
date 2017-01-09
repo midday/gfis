@@ -6,6 +6,10 @@ fis.require.prefixes.unshift('gfis');
 fis.cli.name = 'gfis';
 fis.cli.info = require('./package.json');
 
+// 添加自定义命令
+fis.require._cache['command-init'] = require('./command/init.js');
+fis.set('modules.commands', ['init']);
+
 var gfis = {
     /**
      * 初始化
@@ -56,20 +60,6 @@ var gfis = {
                 parser: fis.plugin('node-sass')
             });
         }
-
-        if (this.config.release.less) {
-            //发布到css目录下，并且后缀设置为.css
-            fis.match('/less/**.{less,css}', {
-                parser: fis.plugin('less-2.x'),
-                rExt: '.css',
-                release: '/css$0'
-            });
-
-            //预编译内嵌的less
-            fis.match('/html/**.{html,ftl}:less', {
-                parser: fis.plugin('less-2.x')
-            });
-        }
     },
     /**
      * 处理文件MD5
@@ -84,13 +74,6 @@ var gfis = {
             //sass md5
             if (this.config.release.sass) {
                 fis.match('/sass/**.{scss,css}', {
-                    useHash: true
-                });
-            }
-
-            //less md5
-            if (this.config.release.less) {
-                fis.match('/less/**.{less,css}', {
                     useHash: true
                 });
             }
@@ -148,18 +131,6 @@ var gfis = {
                     optimizer: fis.plugin('clean-css')
                 });
             }
-
-            //less压缩
-            if (this.config.release.less) {
-                fis.match('/less/**.{less,css}', {
-                    optimizer: fis.plugin('clean-css')
-                });
-
-                //处理内嵌的less代码
-                fis.match('/html/**.{html,ftl}:less', {
-                    optimizer: fis.plugin('clean-css')
-                });
-            }
         }
 
         //png图片压缩
@@ -196,13 +167,6 @@ var gfis = {
                     useSprite: true
                 });
             }
-
-            //less雪碧图
-            if (this.config.release.less) {
-                fis.match('/less/**.{less,css}', {
-                    useSprite: true
-                });
-            }
         }
     },
     /**
@@ -222,6 +186,11 @@ var gfis = {
      * 设置开发环境配置
      */
     _setDevEvnConfig: function() {
+        //关闭编译缓存
+        fis.match('*', {
+            useCache: false
+        });
+
         //不发布build文件
         fis.match('/build/**', {
             release: false
@@ -269,7 +238,7 @@ var gfis = {
                         cssDomain: this.config.release.uatDomain.css,
                         jsDomain: this.config.release.uatDomain.js
                     })
-                })
+                });
         }
 
         fis
@@ -278,7 +247,7 @@ var gfis = {
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.uatDomain.js
             })
-            .match('**.{css,scss,less}', { //css添加域名和项目前缀
+            .match('**.{css,scss}', { //css添加域名和项目前缀
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.uatDomain.css
             })
@@ -333,7 +302,7 @@ var gfis = {
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.preDomain.js
             })
-            .match('**.{css,scss,less}', { //css添加域名和项目前缀
+            .match('**.{css,scss}', { //css添加域名和项目前缀
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.preDomain.css
             })
@@ -390,7 +359,7 @@ var gfis = {
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.prdDomain.js
             })
-            .match('**.{css,scss,less}', { //css添加域名和项目前缀
+            .match('**.{css,scss}', { //css添加域名和项目前缀
                 url: '/' + this.config.projectPath,
                 domain: this.config.release.prdDomain.css
             })
@@ -438,6 +407,5 @@ var gfis = {
         return config;
     }
 };
-
 
 gfis.init();

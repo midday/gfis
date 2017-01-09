@@ -9,14 +9,6 @@ fis.match('/html/**.{html,ftl}:scss', {
     })
 });
 
-// 对内嵌 coffee script 进行处理
-fis.match('/html/**.{html,ftl}:coffee', {
-    parser: fis.plugin('coffee-script'),
-    optimizer: fis.plugin('uglify-js', {
-        // option of clean-css
-    })
-});
-
 fis.match('*', {
     deploy: fis.plugin('local-deliver', {
         to: './build'

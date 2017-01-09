@@ -1,0 +1,38 @@
+{
+    "projectPath": "gmpro/2.0.0/project/1.0.0",
+    "projectFolder": "css|js|widget",
+    "projectApp": "image",
+    "tplPath": "WEB-INF/template/project",
+    "tplFolder": "html",
+    "tplApp": "channel_web",
+    "release": {
+        "sass": false,
+        "cssMd5": false,
+        "jsMd5": false,
+        "imageMd5": false,
+        "jsCompress": true,
+        "cssCompress": true,
+        "pngCompress": true,
+        "htmlCompress": false,
+        "cssSprite": true,
+        "urlCombo": true,
+        "debug": true,
+        "debugDomain": "//127.0.0.1",
+        "ignoreReleaseFiles": null,
+        "uatDomain": {
+            "js": "//js.atguat.net.cn",
+            "css": "//css.atguat.net.cn",
+            "bgimg": "//app.atguat.net.cn"
+        },
+        "preDomain": {
+            "js": "//js.gomeprelive.net.cn",
+            "css": "//css.gomeprelive.net.cn",
+            "bgimg": "//app.gomeprelive.net.cn"
+        },
+        "prdDomain": {
+            "js": "//js.gomein.net.cn",
+            "css": "//css.gomein.net.cn",
+            "bgimg": "//app.gomein.net.cn"
+        }
+    }
+}

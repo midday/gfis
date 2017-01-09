@@ -9,7 +9,7 @@ var cli = new Liftoff({
   name: 'gfis', // 命令名字
   processTitle: 'gfis',
   moduleName: 'gfis',
-  configName: 'fis-conf',
+  configName: 'gfis',
 
   // only js supported!
   extensions: {
