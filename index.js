@@ -3,6 +3,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var _ = fis.util;
 
+// 让gfis打头的先加载。
 fis.require.prefixes.unshift('gfis');
 // 添加自定义命令
 fis.require._cache['command-init'] = require('./command/init.js');
@@ -445,6 +446,5 @@ var gfis = {
 //当执行gfis release/inspect命令时，初始化参数信息
 var cmdName = argv._[0];
 if(~['release', 'inspect'].indexOf(cmdName)){
-    console.log(111);
     gfis.init();
 }
