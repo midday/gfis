@@ -1,6 +1,6 @@
 //运行命令：fis3 release
 fis.match('*', {
-    useCache: false,
+	useCache: false,
     deploy: [
         fis.plugin('gfe-script-place'),
         fis.plugin('local-deliver', {

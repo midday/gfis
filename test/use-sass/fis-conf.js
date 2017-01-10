@@ -9,10 +9,11 @@ fis.match('/sass/(**.scss)', {
 
 // sass 里面的规范，一般_打头的文件都不 release.
 fis.match('/sass/{**/_*.scss,_*.scss}', {
-  release: false
+    release: false
 });
 
 fis.match('*', {
+    useCache: false,
     deploy: fis.plugin('local-deliver', {
         to: './build'
     })
