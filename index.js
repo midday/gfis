@@ -1,14 +1,29 @@
 var fis = module.exports = require('fis3');
+var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
 var _ = fis.util;
 
 fis.require.prefixes.unshift('gfis');
-fis.cli.name = 'gfis';
-fis.cli.info = require('./package.json');
-
 // 添加自定义命令
 fis.require._cache['command-init'] = require('./command/init.js');
-fis.set('modules.commands', ['init','install','release','server','inspect']);
+fis.set('modules.commands', ['init', 'release', 'server', 'inspect']);
+//重置命令行信息
+var cli = fis.cli;
+cli.name = 'gfis';
+cli.info = require('./package.json');
+cli.version = function(){
+    console.log('v' + cli.info.version);
+};
+cli.options = {
+  '-h, --help': 'print this help message',
+  '-v, --version': 'print product version and exit',
+};
+//覆盖run方法，去除fis.log.info
+var oldCliRunMethod = "cli.run = " + cli.run.toString();
+
+var newCliRunMethod = oldCliRunMethod.replace(/fis.log.info.*?;/g,'');
+eval(newCliRunMethod);
+
 
 var gfis = {
     /**
@@ -427,4 +442,9 @@ var gfis = {
     }
 };
 
-gfis.init();
+//当执行gfis release/inspect命令时，初始化参数信息
+var cmdName = argv._[0];
+if(~['release', 'inspect'].indexOf(cmdName)){
+    console.log(111);
+    gfis.init();
+}
