@@ -8,6 +8,7 @@ fis.match('/css/**.css', {
 });
 
 fis.match('*', {
+	useCache: false,
     deploy: [
         fis.plugin('gfe-combo-url'),
         fis.plugin('local-deliver', {

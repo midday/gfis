@@ -4,6 +4,7 @@ fis.match('/html/**.ftl', {
 });
 
 fis.match('*', {
+    useCache: false,
     deploy: fis.plugin('local-deliver', {
         to: './build'
     })

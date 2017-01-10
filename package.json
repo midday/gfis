@@ -30,7 +30,7 @@
     "fis3-deploy-gfe-script-place": "^1.0.3",
     "fis3-parser-gfe-freemarker": "^1.0.2",
     "fis3-parser-gfe-ssi": "^1.0.2",
-    "fis3-prepackager-gfe-debug-output": "^1.0.1",
+    "fis3-prepackager-gfe-debug-output": "^1.0.2",
     "liftoff": "^2.3.0",
     "minimist": "^1.2.0"
   }

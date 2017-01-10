@@ -6,6 +6,7 @@ fis.match('/js/**.js', {
 });
 
 fis.match('*', {
+	useCache: false,
     deploy: fis.plugin('local-deliver', {
         to: './build'
     })

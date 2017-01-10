@@ -7,6 +7,7 @@ fis.match('/html/**.{html,ftl}:js', {
 });
 
 fis.match('*', {
+	useCache: false,
     deploy: fis.plugin('local-deliver', {
         to: './build'
     })

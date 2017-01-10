@@ -1,1 +1,0 @@
-!function(){function n(){console.log.apply(this,arguments)}function o(){n("%s Hello, World",":)")}o()}();
