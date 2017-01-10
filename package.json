@@ -1,6 +1,6 @@
 {
   "name": "gfis",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "前端集成解决方案",
   "main": "index.js",
   "bin": {

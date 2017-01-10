@@ -4,9 +4,8 @@ var path = require('path');
 var _ = fis.util;
 
 // 让gfis打头的先加载。
-fis.require.prefixes.unshift('gfis');
+fis.require.prefixes.unshift('gfe');
 // 添加自定义命令
-fis.require._cache['command-init'] = require('./command/init.js');
 fis.set('modules.commands', ['init', 'release', 'server', 'inspect']);
 //重置命令行信息
 var cli = fis.cli;
