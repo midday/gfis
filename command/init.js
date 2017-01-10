@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path');
-var defaults = require('../lib/defaults.js');
+var defaults = require('../config/defaults.js');
 
 exports.name = 'init';
 exports.desc = 'project directory init';

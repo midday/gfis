@@ -430,7 +430,7 @@ var gfis = {
      * 获取配置文件
      */
     _getConfig: function() {
-        var config = require('./lib/defaults.js');
+        var config = require('./config/defaults.js');
         var gfeConfigPath = path.join(process.cwd(), 'gfe-config.json');
         if (_.exists(gfeConfigPath)) {
             var gfeConfig = _.readJSON(gfeConfigPath);
