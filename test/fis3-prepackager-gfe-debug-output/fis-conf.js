@@ -1,9 +1,15 @@
 fis.match('::package', {
+    prepackager: fis.plugin('autoprefixer')
+});
+
+fis.match('::package', {
     prepackager: fis.plugin('gfe-debug-output', {
         cssDomain: '//js.atguat.net.cn',
         jsDomain: '//css.atguat.net.cn'
-    })
+    },'prepend')
 });
+
+
 
 fis.match('/js/**.js', {
     domain: '//js.atguat.net.cn'

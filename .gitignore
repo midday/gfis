@@ -30,7 +30,7 @@ build/Release
 test/**/build
 
 #demo compile
-test/**/build
+demo/**/build
 
 # Dependency directories
 node_modules

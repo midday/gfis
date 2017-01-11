@@ -31,6 +31,9 @@ module.exports = {
         //雪碧图
         cssSprite: true, //是否开启css sprite功能
 
+        //css的浏览器前缀
+        cssAutoPrefixer: false,//是否开启css对浏览器前缀的处理
+
         //静态资源combo
         urlCombo: true, //是否合并js、css文件
 

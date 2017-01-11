@@ -6,7 +6,7 @@
     "tplFolder": "html",
     "tplApp": "channel_web",
     "release": {
-        "sass": true,
+        "sass": false,
         "cssMd5": false,
         "jsMd5": false,
         "imageMd5": false,
@@ -15,7 +15,6 @@
         "pngCompress": true,
         "htmlCompress": false,
         "cssSprite": true,
-        "cssAutoPrefixer": false,
         "urlCombo": true,
         "debug": true,
         "debugDomain": "//127.0.0.1",
