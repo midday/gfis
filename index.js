@@ -273,7 +273,6 @@ var gfis = {
      * @param {Object} envDomain   远程环境域名对象
      */
     _setRemoteEnvConfig: function(evnMedia, envDomain) {
-        console.log(envDomain);
         //是否开启debug输出
         if (this.config.release.debug) {
             evnMedia
