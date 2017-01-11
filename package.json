@@ -1,6 +1,6 @@
 {
   "name": "gfis",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "前端集成解决方案",
   "main": "index.js",
   "bin": {
@@ -31,7 +31,7 @@
     "fis3-parser-gfe-freemarker": "^1.0.2",
     "fis3-parser-gfe-ssi": "^1.0.2",
     "fis3-prepackager-gfe-debug-output": "^1.0.2",
-    "gfe-command-init": "^1.0.0",
+    "gfe-command-init": "^1.0.1",
     "liftoff": "^2.3.0",
     "minimist": "^1.2.0"
   }
