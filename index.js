@@ -11,19 +11,17 @@ fis.set('modules.commands', ['init', 'release', 'server', 'inspect']);
 var cli = fis.cli;
 cli.name = 'gfis';
 cli.info = require('./package.json');
-cli.version = function(){
+cli.version = function() {
     console.log('v' + cli.info.version);
 };
 cli.options = {
-  '-h, --help': 'print this help message',
-  '-v, --version': 'print product version and exit',
+    '-h, --help': 'print this help message',
+    '-v, --version': 'print product version and exit',
 };
 //覆盖run方法，去除fis.log.info
 var oldCliRunMethod = "cli.run = " + cli.run.toString();
-
-var newCliRunMethod = oldCliRunMethod.replace(/fis.log.info.*?;/g,'');
+var newCliRunMethod = oldCliRunMethod.replace(/fis.log.info.*?;/g, '');
 eval(newCliRunMethod);
-
 
 var gfis = {
     /**
@@ -40,6 +38,7 @@ var gfis = {
     setEvnCommonConfig: function() {
         this._setBaseCommon();
         this._preCompile();
+        this._processFileByCssProfixer();
         this._processFileByMd5();
         this._processFileByCompress();
         this._processCssSprite();
@@ -50,9 +49,9 @@ var gfis = {
      */
     setEnvPrivateConfig: function() {
         this._setDevEvnConfig();
-        this._setUatEvnConfig();
-        this._setPreEvnConfig();
-        this._setPrdEvnConfig();
+        this._setRemoteEnvConfig(fis.media('uat'), this.config.release.uatDomain);
+        this._setRemoteEnvConfig(fis.media('pre'), this.config.release.preDomain);
+        this._setRemoteEnvConfig(fis.media('prd'), this.config.release.prdDomain);
     },
     /**
      * 设置基础配置
@@ -88,6 +87,25 @@ var gfis = {
             //预编译内嵌的sass
             fis.match('/html/**.{html,ftl}:scss', {
                 parser: fis.plugin('node-sass')
+            });
+        }
+    },
+    /**
+     * 处理CSS前缀自动补全
+     */
+    _processFileByCssProfixer: function() {
+        //css浏览器前缀自动补齐
+        if (this.config.release.cssAutoPrefixer) {
+            if (this.config.release.sass) {
+                fis.match('/sass/**.{scss,css}', {
+                    postprocessor: fis.plugin("autoprefixer")
+                });
+                fis.match('/html/**.{html,ftl}:scss', {
+                    postprocessor: fis.plugin("autoprefixer")
+                });
+            }
+            fis.match('/css/**.css', {
+                postprocessor: fis.plugin("autoprefixer")
             });
         }
     },
@@ -250,149 +268,33 @@ var gfis = {
             });
     },
     /**
-     * 设置uat环境配置
+     * 设置远程环境配置
+     * @param {Object} evnMedia 远程环境media对象，例如：fis.media('uat')
+     * @param {Object} envDomain   远程环境域名对象
      */
-    _setUatEvnConfig: function() {
+    _setRemoteEnvConfig: function(evnMedia, envDomain) {
+        console.log(envDomain);
         //是否开启debug输出
         if (this.config.release.debug) {
-            fis
-                .media('uat')
+            evnMedia
                 .match('::package', {
                     //输出debug文件
                     prepackager: fis.plugin('gfe-debug-output', {
-                        cssDomain: this.config.release.uatDomain.css,
-                        jsDomain: this.config.release.uatDomain.js
-                    })
-                });
-        }
-
-        fis
-            .media('uat')
-            .match('**.js', { //js添加域名和项目前缀
-                url: '/' + this.config.projectPath,
-                domain: this.config.release.uatDomain.js
-            })
-            .match('**.{css,scss}', { //css添加域名和项目前缀
-                url: '/' + this.config.projectPath,
-                domain: this.config.release.uatDomain.css
-            })
-            .match('::image', { //图片添加项目前缀
-                url: '/' + this.config.projectPath
-            })
-            .match('/html/**.{html,ftl}', {
-                parser: null
-            })
-            .match('/html/**.ftl', {
-                rExt: '.ftl'
-            })
-            .match('*', {
-                deploy: [
-                    fis.plugin('gfe-combo-url', {
-                        useCombo: this.config.release.urlCombo
-                    }),
-                    fis.plugin('gfe-script-inbottom'),
-                    fis.plugin('gfe-script-place'),
-                    fis.plugin('gfe-replace', {
-                        patterns: [{
-                            match: '__JS_DOMAIN__',
-                            replacement: this.config.release.uatDomain.js
-                        }, {
-                            match: '__CSS_DOMAIN__',
-                            replacement: this.config.release.uatDomain.css
-                        }]
-                    }),
-                    fis.plugin('local-deliver', {
-                        to: './build'
-                    })
-                ]
-            });
-    },
-    /**
-     * 设置pre环境配置
-     */
-    _setPreEvnConfig: function() {
-        //是否开启debug输出
-        if (this.config.release.debug) {
-            fis
-                .media('pre')
-                .match('::package', {
-                    //输出debug文件
-                    prepackager: fis.plugin('gfe-debug-output', {
-                        cssDomain: this.config.release.preDomain.css,
-                        jsDomain: this.config.release.preDomain.js
-                    })
-                });
-        }
-
-        fis
-            .media('pre')
-            .match('**.js', { //js添加域名和项目前缀
-                url: '/' + this.config.projectPath,
-                domain: this.config.release.preDomain.js
-            })
-            .match('**.{css,scss}', { //css添加域名和项目前缀
-                url: '/' + this.config.projectPath,
-                domain: this.config.release.preDomain.css
-            })
-            .match('::image', { //图片添加项目前缀
-                url: '/' + this.config.projectPath
-            })
-            .match('/html/**.{html,ftl}', {
-                parser: null
-            })
-            .match('/html/**.ftl', {
-                rExt: '.ftl'
-            })
-            .match('*', {
-                deploy: [
-                    fis.plugin('gfe-combo-url', {
-                        useCombo: this.config.release.urlCombo
-                    }),
-                    fis.plugin('gfe-script-inbottom'),
-                    fis.plugin('gfe-script-place'),
-                    fis.plugin('gfe-replace', {
-                        patterns: [{
-                            match: '__JS_DOMAIN__',
-                            replacement: this.config.release.preDomain.js
-                        }, {
-                            match: '__CSS_DOMAIN__',
-                            replacement: this.config.release.preDomain.css
-                        }]
-                    }),
-                    fis.plugin('local-deliver', {
-                        to: './build'
-                    })
-                ]
-            });
-    },
-    /**
-     * 设置prd环境配置
-     */
-    _setPrdEvnConfig: function() {
-        //是否开启debug输出
-        if (this.config.release.debug) {
-            fis
-                .media('prd')
-                .match('::package', {
-                    //输出debug文件
-                    prepackager: fis.plugin('gfe-debug-output', {
-                        cssDomain: this.config.release.prdDomain.css,
-                        jsDomain: this.config.release.prdDomain.js,
+                        cssDomain: envDomain.css,
+                        jsDomain: envDomain.js,
                         debugDomain: this.config.release.debugDomain
-                    })
+                    }, 'append')
                 });
         }
 
-
-        fis
-            .media('prd')
+        evnMedia
             .match('**.js', { //js添加域名和项目前缀
                 url: '/' + this.config.projectPath,
-                domain: this.config.release.prdDomain.js
+                domain: envDomain.js
             })
             .match('**.{css,scss}', { //css添加域名和项目前缀
                 url: '/' + this.config.projectPath,
-                domain: this.config.release.prdDomain.css
+                domain: envDomain.css
             })
             .match('::image', { //图片添加项目前缀
                 url: '/' + this.config.projectPath
@@ -413,10 +315,10 @@ var gfis = {
                     fis.plugin('gfe-replace', {
                         patterns: [{
                             match: '__JS_DOMAIN__',
-                            replacement: this.config.release.prdDomain.js
+                            replacement: envDomain.js
                         }, {
                             match: '__CSS_DOMAIN__',
-                            replacement: this.config.release.prdDomain.css
+                            replacement: envDomain.css
                         }]
                     }),
                     fis.plugin('local-deliver', {
@@ -444,6 +346,6 @@ var gfis = {
 
 //当执行gfis release/inspect命令时，初始化参数信息
 var cmdName = argv._[0];
-if(~['release', 'inspect'].indexOf(cmdName)){
+if (~['release', 'inspect'].indexOf(cmdName)) {
     gfis.init();
 }
