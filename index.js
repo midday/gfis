@@ -6,7 +6,10 @@ var _ = fis.util;
 // 让gfis打头的先加载。
 fis.require.prefixes.unshift('gfe');
 // 添加自定义命令
-fis.set('modules.commands', ['init', 'release', 'server', 'inspect']);
+fis.require._cache['command-svn'] = require('./command/svn.js');
+fis.require._cache['command-npm'] = require('./command/npm.js');
+fis.require._cache['command-clean'] = require('./command/clean.js');
+fis.set('modules.commands', ['init', 'release', 'server', 'inspect','svn','npm','clean']);
 //重置命令行信息
 var cli = fis.cli;
 cli.name = 'gfis';
