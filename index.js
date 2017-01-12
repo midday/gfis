@@ -1,7 +1,7 @@
 var fis = module.exports = require('fis3');
 var argv = require('minimist')(process.argv.slice(2));
 var path = require('path');
-var _ = fis.util;
+var _ = require('../lib/util.js');
 
 // 让gfis打头的先加载。
 fis.require.prefixes.unshift('gfe');
@@ -9,7 +9,7 @@ fis.require.prefixes.unshift('gfe');
 fis.require._cache['command-svn'] = require('./command/svn.js');
 fis.require._cache['command-npm'] = require('./command/npm.js');
 fis.require._cache['command-clean'] = require('./command/clean.js');
-fis.set('modules.commands', ['init', 'release', 'server', 'inspect','svn','npm','clean']);
+fis.set('modules.commands', ['init', 'release', 'server', 'inspect', 'svn', 'npm', 'clean']);
 //重置命令行信息
 var cli = fis.cli;
 cli.name = 'gfis';
@@ -31,7 +31,7 @@ var gfis = {
      * 初始化
      */
     init: function() {
-        this.config = this._getConfig();
+        this.config = _.gfeConfig();
         this.setEvnCommonConfig();
         this.setEnvPrivateConfig();
     },
@@ -328,21 +328,6 @@ var gfis = {
                     })
                 ]
             });
-    },
-    /**
-     * 获取配置文件
-     */
-    _getConfig: function() {
-        var config = require('./config/defaults.js');
-        var gfeConfigPath = path.join(process.cwd(), 'gfe-config.json');
-        if (_.exists(gfeConfigPath)) {
-            var gfeConfig = _.readJSON(gfeConfigPath);
-            config = _.merge(config, gfeConfig);
-        } else {
-            _.write(gfeConfigPath, JSON.stringify(config, null, 4), 'utf-8');
-        }
-
-        return config;
     }
 };
 
