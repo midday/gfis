@@ -1,6 +1,6 @@
 {
   "name": "gfis",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "前端集成解决方案",
   "main": "index.js",
   "bin": {
@@ -11,12 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/midday/fis3-parser-gfe-ssi.git"
+    "url": "git+https://github.com/midday/gfis.git"
   },
   "keywords": [
     "gfe",
-    "fis3",
-    "ssi"
+    "fis3"
   ],
   "author": "midday",
   "license": "MIT",
@@ -29,7 +28,7 @@
     "fis3-deploy-gfe-script-inbottom": "^1.0.1",
     "fis3-deploy-gfe-script-place": "^1.0.4",
     "fis3-parser-gfe-freemarker": "^1.0.2",
-    "fis3-parser-gfe-ssi": "^1.0.2",
+    "fis3-parser-gfe-ssi": "^1.0.3",
     "fis3-postprocessor-autoprefixer": "^1.0.0",
     "fis3-prepackager-gfe-debug-output": "^1.0.3",
     "gfe-command-init": "^1.0.1",
