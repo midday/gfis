@@ -1,7 +1,7 @@
 {
   "name": "gfis",
   "version": "1.0.22",
-  "description": "前端集成解决方案",
+  "description": "gome前端集成解决方案",
   "main": "index.js",
   "bin": {
     "gfis": "bin/gfis"
