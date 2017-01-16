@@ -10,7 +10,7 @@ fis.match('/css/**.css', {
 });
 
 //image md5
-fis.match('::image', {
+fis.match('/css/**.{svg,tif,tiff,wbmp,png,bmp,fax,gif,ico,jfif,jpe,jpeg,jpg,woff,cur}', {
     useHash: true
 });
 

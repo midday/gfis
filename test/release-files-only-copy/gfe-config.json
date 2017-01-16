@@ -5,7 +5,24 @@
     "tplPath": "WEB-INF/template/project",
     "tplFolder": "html",
     "tplApp": "channel_web",
+    "styleWorkDirs": [
+        "css"
+    ],
+    "scriptWorkDirs": [
+        "js"
+    ],
+    "viewWorkDirs": [
+        "html"
+    ],
     "release": {
+        "onlyCopyFiles": [
+            "gfe-config.json",
+            "{csslib,jslib}/**"
+        ],
+        "excludesFiles": [
+            "data/**",
+            "widget/**"
+        ],
         "sass": false,
         "cssMd5": false,
         "jsMd5": false,
@@ -15,10 +32,10 @@
         "pngCompress": true,
         "htmlCompress": false,
         "cssSprite": true,
+        "cssAutoPrefixer": false,
         "urlCombo": true,
         "debug": true,
         "debugDomain": "//127.0.0.1",
-        "ignoreReleaseFiles": null,
         "uatDomain": {
             "js": "//js.atguat.net.cn",
             "css": "//css.atguat.net.cn",
